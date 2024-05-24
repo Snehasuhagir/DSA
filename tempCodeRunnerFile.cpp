@@ -1,1 +1,2 @@
-    cout<<f(s,0,n);
+
+    //sorting individual bucket
