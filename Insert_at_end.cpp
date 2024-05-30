@@ -58,22 +58,7 @@ class doubly_LL{
         tail = new_node;
         return;
     }
-    void insert_at_Pos(int k,int pos){
-        node *new_node = new node(k);
-        node *temp = head;
-        int count = 1;
-        while(count<(pos-1)){
-          temp= temp->next;
-          count++;
-        }
-        new_node->next = temp->next;
-        temp->next = new_node;
-
-        new_node->prev = temp;
-        new_node->next->prev = new_node;
-      
-        return;
-    }
+    
 };
 int main(){
   
@@ -91,7 +76,5 @@ int main(){
   ll.insert_at_end(3);
   ll.display();
   ll.insert_at_end(4);
-  ll.display();
-  ll.insert_at_Pos(5,3);
   ll.display();
 }

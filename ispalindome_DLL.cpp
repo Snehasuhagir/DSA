@@ -74,24 +74,73 @@ class doubly_LL{
       
         return;
     }
+    void delete_at_start(){
+
+        if(head==NULL){
+            return;
+        }
+
+        node *temp = head;
+        head = head->next;
+        if(head==NULL){
+            tail = NULL;
+        }
+        else{
+            head->prev = NULL;
+        }
+        free(temp);
+        return;
+    }
+    void delete_at_end(){
+        if(tail==NULL){
+            return;
+        }
+
+        node *temp = tail;
+        tail = tail->prev;
+        if(tail==NULL){
+            head=NULL;
+        }
+        else{
+            tail->next = NULL;
+        }
+        free(temp);
+        return;
+    }
+    void delete_at_pos(int pos){
+        node *temp = head;
+        int count =1;
+        while(count<pos){
+            temp = temp->next;
+            count++;
+        }
+        temp->prev->next = temp->next;
+        temp->next->prev = temp->prev;
+        free(temp);
+        return ; 
+    }
+
+    bool is_palindrome(node *head,node *tail){
+
+        while(head!=tail && tail!=head->prev){
+            if(head->val!=tail->val){
+                return false;
+            }
+            head = head->next;
+            tail = tail->prev;
+        }
+        return true;
+    }
 };
 int main(){
   
   doubly_LL ll;
- // ll.insert_at_start(1);
- // ll.display();
- // ll.insert_at_start(2);
- // ll.display();
- // ll.insert_at_start(3);
- // ll.display();
+  ll.insert_at_end(1);
+  ll.insert_at_end(2);
+  ll.insert_at_end(3);
+  ll.insert_at_end(3);
+  ll.insert_at_end(2);
   ll.insert_at_end(1);
   ll.display();
-  ll.insert_at_end(2);
-  ll.display();
-  ll.insert_at_end(3);
-  ll.display();
-  ll.insert_at_end(4);
-  ll.display();
-  ll.insert_at_Pos(5,3);
-  ll.display();
+  cout<<ll.is_palindrome(ll.head,ll.tail);
 }

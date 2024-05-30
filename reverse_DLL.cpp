@@ -74,6 +74,66 @@ class doubly_LL{
       
         return;
     }
+    void delete_at_start(){
+
+        if(head==NULL){
+            return;
+        }
+
+        node *temp = head;
+        head = head->next;
+        if(head==NULL){
+            tail = NULL;
+        }
+        else{
+            head->prev = NULL;
+        }
+        free(temp);
+        return;
+    }
+    void delete_at_end(){
+        if(tail==NULL){
+            return;
+        }
+
+        node *temp = tail;
+        tail = tail->prev;
+        if(tail==NULL){
+            head=NULL;
+        }
+        else{
+            tail->next = NULL;
+        }
+        free(temp);
+        return;
+    }
+    void delete_at_pos(int pos){
+        node *temp = head;
+        int count =1;
+        while(count<pos){
+            temp = temp->next;
+            count++;
+        }
+        temp->prev->next = temp->next;
+        temp->next->prev = temp->prev;
+        free(temp);
+        return ; 
+    }
+
+    void reverseDLL(node *&head,node *&tail){
+        node *curr = head;
+
+        while(curr){
+            node *nextptr = curr->next;
+            curr->next = curr->prev;
+            curr->prev = nextptr;
+            curr = nextptr;
+        }
+        node *new_head = tail;
+        tail = head;
+        head = new_head;
+        
+    }
 };
 int main(){
   
@@ -92,6 +152,14 @@ int main(){
   ll.display();
   ll.insert_at_end(4);
   ll.display();
-  ll.insert_at_Pos(5,3);
+  //ll.insert_at_Pos(5,3);
+  // ll.display();
+  //ll.delete_at_start();
+  //ll.display();
+  //ll.delete_at_end();
+  //ll.display();
+  //ll.delete_at_pos(3);
+  //ll.display();
+  ll.reverseDLL(ll.head,ll.tail);
   ll.display();
 }
