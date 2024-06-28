@@ -34,7 +34,7 @@ public:
         int diagonal = solveMemo(mat,i+1,j+1,maxi,dp);
         int down = solveMemo(mat,i+1,j,maxi,dp);
         
-        if(mat[i][j] == 1){
+        if(mat[i][j] == 2){
             dp[i][j] = 1 + min(right,min(diagonal,down));
             maxi = max(maxi,dp[i][j]);
             return dp[i][j];
