@@ -1,0 +1,60 @@
+class Solution {
+public:
+   int solverec(int start,int end){
+     //base case
+     if(start >= end)
+      return 0;
+ 
+     int ans = INT_MAX;
+     for(int i = start ; i<=end ; i++){
+        ans = min(ans,i + max(solverec(start,i-1),solverec(i+1,end)));
+     } 
+     return ans;
+   }  
+
+   int solveMemo(int start,int end,vector<vector<int> >& dp){
+     //base case
+     if(start >= end)
+      return 0;
+ 
+     if(dp[start][end] != -1)
+      return dp[start][end];
+
+     int ans = INT_MAX;
+     for(int i = start ; i<=end ; i++){
+        ans = min(ans,i + max(solveMemo(start,i-1,dp),solveMemo(i+1,end,dp)));
+     } 
+     return dp[start][end] = ans;
+   }  
+
+   int solveTabu(int n){
+    vector<vector<int> > dp(n+2,vector<int>(n+2,0));
+
+    for(int start = n ; start>=1 ; start--){
+        for(int end = start ; end<=n ; end++){
+            if(start == end)
+             continue;
+
+            else{
+               int ans = INT_MAX;
+               for(int i = start ; i<=end ; i++){
+               ans = min(ans,i + max(dp[start][i-1],dp[i+1][end]));
+               }  
+               dp[start][end] = ans; 
+               } 
+        }
+    }
+    return dp[1][n];
+   }
+    int getMoneyAmount(int n) {
+       // RECURSION
+        //return solverec(1,n);
+
+       //MEMOIZATION
+        //vector<vector<int> > dp(n+1,vector<int>(n+1,-1));
+         //return ssolveMemo(1,n,dp);
+
+       //TABULATION
+        return solveTabu(n);   
+    }
+};
